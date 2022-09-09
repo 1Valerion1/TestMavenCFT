@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Main {
-    private static final String exitMessage = " Нажмите Enter для прекращения программы.";
+    private static final String exitMessage = " РќР°Р¶РјРёС‚Рµ Enter РґР»СЏ РїСЂРµРєСЂР°С‰РµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹.";
 
     public static void main(String[] args) throws Exception {
         String TypeSort = "-a";
@@ -15,19 +15,19 @@ public class Main {
         String outputFileName;
         String text;
         String[] temp = null;
-        System.out.println("Введите параметры сортировки: -тип сортировки(-a/-d) -тип данных(-i/-s)"
-                + " имя выходного файла(out.txt)  имена входных файлов(in1.txt)");
+        System.out.println("Р’РІРµРґРёС‚Рµ РїР°СЂР°РјРµС‚СЂС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё: -С‚РёРї СЃРѕСЂС‚РёСЂРѕРІРєРё(-a/-d) -С‚РёРї РґР°РЅРЅС‹С…(-i/-s)"
+                + " РёРјСЏ РІС‹С…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°(out.txt)  РёРјРµРЅР° РІС…РѕРґРЅС‹С… С„Р°Р№Р»РѕРІ(in1.txt)");
 
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         text = read.readLine();
         temp = text.split(" ");
         if (temp.length < 3) {
-            throw new Exception("Отсутствуют обязательные параметры:" + " тип данных, имя выходного файла или имя входного файла.\n");
+            throw new Exception("РћС‚СЃСѓС‚СЃС‚РІСѓСЋС‚ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹:" + " С‚РёРї РґР°РЅРЅС‹С…, РёРјСЏ РІС‹С…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р° РёР»Рё РёРјСЏ РІС…РѕРґРЅРѕРіРѕ С„Р°Р№Р»Р°.\n");
         }
         read.close();
 
         int i = 0;
-        //Проверяем введенный тип сортировки
+        //РџСЂРѕРІРµСЂСЏРµРј РІРІРµРґРµРЅРЅС‹Р№ С‚РёРї СЃРѕСЂС‚РёСЂРѕРІРєРё
         if (temp[i].equals("-d")) {
             TypeSort = "-d";
             i++;
@@ -35,27 +35,27 @@ public class Main {
             TypeSort = "-a";
             i++;
         } else if (!temp[i].equals("-i") || !temp[i].equals("-s")) {
-            System.out.println("Вы неверно указали тип сортировки."
-                    + " Элементы будут отсортированы по возрастанию по умолчанию.");
+            System.out.println("Р’С‹ РЅРµРІРµСЂРЅРѕ СѓРєР°Р·Р°Р»Рё С‚РёРї СЃРѕСЂС‚РёСЂРѕРІРєРё."
+                    + " Р­Р»РµРјРµРЅС‚С‹ Р±СѓРґСѓС‚ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅС‹ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.");
             TypeSort = "-a";
             i++;
         } else {
-            System.out.println("Вы неверно указали тип сортировки."
-                    + " Элементы будут отсортированы по возрастанию по умолчанию.");
+            System.out.println("Р’С‹ РЅРµРІРµСЂРЅРѕ СѓРєР°Р·Р°Р»Рё С‚РёРї СЃРѕСЂС‚РёСЂРѕРІРєРё."
+                    + " Р­Р»РµРјРµРЅС‚С‹ Р±СѓРґСѓС‚ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅС‹ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.");
             TypeSort = "-a";
         }
-        //Проверяем введеный тип данных
+        //РџСЂРѕРІРµСЂСЏРµРј РІРІРµРґРµРЅС‹Р№ С‚РёРї РґР°РЅРЅС‹С…
         if (temp[i].equals("-i") || temp[i].equals("-s")) {
             if (temp[i].equals("-i")) Type = "-i";
             else Type = "-s";
             i++;
-        } else throw new Exception("Вы ввели неверный тип данных, попробуйте снова.");
-        //Выводимый файл
+        } else throw new Exception("Р’С‹ РІРІРµР»Рё РЅРµРІРµСЂРЅС‹Р№ С‚РёРї РґР°РЅРЅС‹С…, РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.");
+        //Р’С‹РІРѕРґРёРјС‹Р№ С„Р°Р№Р»
         outputFileName = temp[i];
         i++;
 
-        String data[]; //массив строк
-        int intArr[]; //массив целых чисел
+        String data[]; //РјР°СЃСЃРёРІ СЃС‚СЂРѕРє
+        int intArr[]; //РјР°СЃСЃРёРІ С†РµР»С‹С… С‡РёСЃРµР»
         List<String> rawData = new ArrayList<>();
 
         for (int j = i; j < temp.length; j++) {
@@ -64,15 +64,15 @@ public class Main {
 
                 while ((line = reader.readLine()) != null) {
                     if (line.indexOf(' ') != -1)
-                        throw new Exception("У вас присутствует пробел в строке, уберите и попробуйте снова");
+                        throw new Exception("РЈ РІР°СЃ РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ РїСЂРѕР±РµР» РІ СЃС‚СЂРѕРєРµ, СѓР±РµСЂРёС‚Рµ Рё РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°");
                     rawData.add(line);
                 }
 
             } catch (FileNotFoundException e) {
-                System.out.println("Входной файл с заданым именем не найден." + exitMessage);
+                System.out.println("Р’С…РѕРґРЅРѕР№ С„Р°Р№Р» СЃ Р·Р°РґР°РЅС‹Рј РёРјРµРЅРµРј РЅРµ РЅР°Р№РґРµРЅ." + exitMessage);
                 exitByEnterPressed();
             } catch (IOException e) {
-                System.out.println("Ошибка чтения входных данных." + exitMessage);
+                System.out.println("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ РІС…РѕРґРЅС‹С… РґР°РЅРЅС‹С…." + exitMessage);
                 exitByEnterPressed();
             }
         }
@@ -94,14 +94,14 @@ public class Main {
                         return a.length() - b.length();
                     }
                     return a.compareTo(b);
-                };//сортировка по алфавиту и длинне
+                };//СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ Р°Р»С„Р°РІРёС‚Сѓ Рё РґР»РёРЅРЅРµ
                 mergeStart(data, comp, TypeSort);
 
                 for (int k = 0; k < data.length; k++)
                     writer.write(data[k] + "\n");
             }
         } catch (IOException e) {
-            System.out.println("Ошибка записи выходных данных." + exitMessage);
+            System.out.println("РћС€РёР±РєР° Р·Р°РїРёСЃРё РІС‹С…РѕРґРЅС‹С… РґР°РЅРЅС‹С…." + exitMessage);
         }
 
     }
@@ -115,25 +115,25 @@ public class Main {
         }
     }
 
-    // Проверка соответствия выбранного типа данных типу данных в файле
+    // РџСЂРѕРІРµСЂРєР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ С‚РёРїР° РґР°РЅРЅС‹С… С‚РёРїСѓ РґР°РЅРЅС‹С… РІ С„Р°Р№Р»Рµ
     public static String checkArrayType(String[] arr, String expectedType) {
         if (expectedType.equals("-i")) {
             try {
                 int intArr[] = Arrays.stream(arr).mapToInt(value -> Integer.parseInt(value)).toArray();
             } catch (NumberFormatException e) {
-                System.out.println("Вы пытаетесь отсортировать массив, содержащий строки, как массив целых чисел." + " Тип сортируемых данных будет изменен.");
+                System.out.println("Р’С‹ РїС‹С‚Р°РµС‚РµСЃСЊ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ РјР°СЃСЃРёРІ, СЃРѕРґРµСЂР¶Р°С‰РёР№ СЃС‚СЂРѕРєРё, РєР°Рє РјР°СЃСЃРёРІ С†РµР»С‹С… С‡РёСЃРµР»." + " РўРёРї СЃРѕСЂС‚РёСЂСѓРµРјС‹С… РґР°РЅРЅС‹С… Р±СѓРґРµС‚ РёР·РјРµРЅРµРЅ.");
                 return "-s";
             }
         } else if (expectedType.equals("-s")) {
             try {
                 int intArr[] = Arrays.stream(arr).mapToInt(value -> Integer.parseInt(value)).toArray();
-                System.out.println("Вы пытаетесь отсортировать массив целых чисел как массив строк." + " Тип сортируемых данных будет изменен.");
+                System.out.println("Р’С‹ РїС‹С‚Р°РµС‚РµСЃСЊ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ РјР°СЃСЃРёРІ С†РµР»С‹С… С‡РёСЃРµР» РєР°Рє РјР°СЃСЃРёРІ СЃС‚СЂРѕРє." + " РўРёРї СЃРѕСЂС‚РёСЂСѓРµРјС‹С… РґР°РЅРЅС‹С… Р±СѓРґРµС‚ РёР·РјРµРЅРµРЅ.");
                 return "-i";
             } catch (NumberFormatException e) {
                 return expectedType;
             }
         } else {
-            System.out.println("Вы указали неверный тип входных данных." + " Данные будут отсортированы по умолчанию как массив строк.");
+            System.out.println("Р’С‹ СѓРєР°Р·Р°Р»Рё РЅРµРІРµСЂРЅС‹Р№ С‚РёРї РІС…РѕРґРЅС‹С… РґР°РЅРЅС‹С…." + " Р”Р°РЅРЅС‹Рµ Р±СѓРґСѓС‚ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅС‹ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РєР°Рє РјР°СЃСЃРёРІ СЃС‚СЂРѕРє.");
             return "-s";
         }
         return expectedType;
@@ -147,13 +147,13 @@ public class Main {
     }
 
     public static void mergeSort(int[] array, int[] support, int startIndex, int endIndex, String TypeSort) {
-        if (startIndex >= endIndex) { // условия окончания нашей рекурсии
+        if (startIndex >= endIndex) { // СѓСЃР»РѕРІРёСЏ РѕРєРѕРЅС‡Р°РЅРёСЏ РЅР°С€РµР№ СЂРµРєСѓСЂСЃРёРё
             return;
         }
         int h = startIndex + (endIndex - startIndex) / 2;
-        mergeSort(array, support, startIndex, h, TypeSort); //сортировка левой подпоследовательность
-        mergeSort(array, support, h + 1, endIndex, TypeSort); // сортировка правой подпоследовательноси
-        merge(array, support, startIndex, h, h + 1, endIndex, TypeSort); // слияние подпоследовательностей
+        mergeSort(array, support, startIndex, h, TypeSort); //СЃРѕСЂС‚РёСЂРѕРІРєР° Р»РµРІРѕР№ РїРѕРґРїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ
+        mergeSort(array, support, h + 1, endIndex, TypeSort); // СЃРѕСЂС‚РёСЂРѕРІРєР° РїСЂР°РІРѕР№ РїРѕРґРїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃРё
+        merge(array, support, startIndex, h, h + 1, endIndex, TypeSort); // СЃР»РёСЏРЅРёРµ РїРѕРґРїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚РµР№
     }
     public static void merge(int[] array, int[] supportArray, int ls, int le, int rs, int re, String TypeSort) {
         for (int i = ls; i <= re; i++) {
@@ -168,10 +168,10 @@ public class Main {
             } else if (r > re) {
                 array[i] = supportArray[l];
                 l += 1;
-            } else if (TypeSort.equals("-a") && supportArray[l] < supportArray[r]) {//сортируем по возрастанию
+            } else if (TypeSort.equals("-a") && supportArray[l] < supportArray[r]) {//СЃРѕСЂС‚РёСЂСѓРµРј РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ
                 array[i] = supportArray[l];
                 l += 1;
-            } else if (TypeSort.equals("-d") && supportArray[l] > supportArray[r]) { // сортировка по убыванию
+            } else if (TypeSort.equals("-d") && supportArray[l] > supportArray[r]) { // СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ СѓР±С‹РІР°РЅРёСЋ
                 array[i] = supportArray[l];
                 l += 1;
             } else {
@@ -180,7 +180,7 @@ public class Main {
             }
         }
     }
-    //Сортировка строк
+    //РЎРѕСЂС‚РёСЂРѕРІРєР° СЃС‚СЂРѕРє
     public static <T> void mergeStart(T[] array, Comparator<T> comp, String TypeSort) {
         T[] support = Arrays.copyOf(array, array.length);
         int startIndex = 0;
@@ -192,9 +192,9 @@ public class Main {
             return;
         }
         int h = startIndex + (endIndex - startIndex) / 2;
-        mergeSort(array, support, comp, startIndex, h, TypeSort);//сортировка левой подпоследовательность
-        mergeSort(array, support, comp, h + 1, endIndex, TypeSort);// сортировка правой подпоследовательноси
-        merge(array, support, comp, startIndex, h, h + 1, endIndex, TypeSort);// слияние подпоследовательностей
+        mergeSort(array, support, comp, startIndex, h, TypeSort);//СЃРѕСЂС‚РёСЂРѕРІРєР° Р»РµРІРѕР№ РїРѕРґРїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ
+        mergeSort(array, support, comp, h + 1, endIndex, TypeSort);// СЃРѕСЂС‚РёСЂРѕРІРєР° РїСЂР°РІРѕР№ РїРѕРґРїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃРё
+        merge(array, support, comp, startIndex, h, h + 1, endIndex, TypeSort);// СЃР»РёСЏРЅРёРµ РїРѕРґРїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚РµР№
     }
     public static <T> void merge(T[] array, T[] support, Comparator<T> comp, int ls, int le, int rs, int re, String TypeSort) {
         for (int i = ls; i <= re; i++) {
