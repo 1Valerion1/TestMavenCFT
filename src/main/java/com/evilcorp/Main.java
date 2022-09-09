@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Main {
     private static final String exitMessage = " Нажмите Enter для прекращения программы.";
+
     public static void main(String[] args) throws Exception {
         String TypeSort = "-a";
         String Type = "";
@@ -137,3 +138,87 @@ public class Main {
         }
         return expectedType;
     }
+
+    public static void mergeStartInt(int[] array, String TypeSort) {
+        int[] support = Arrays.copyOf(array, array.length);
+        int startIndex = 0;
+        int stopIndex = support.length - 1;
+        mergeSort(array, support, startIndex, stopIndex, TypeSort);
+    }
+
+    public static void mergeSort(int[] array, int[] support, int startIndex, int endIndex, String TypeSort) {
+        if (startIndex >= endIndex) { // условия окончания нашей рекурсии
+            return;
+        }
+        int h = startIndex + (endIndex - startIndex) / 2;
+        mergeSort(array, support, startIndex, h, TypeSort); //сортировка левой подпоследовательность
+        mergeSort(array, support, h + 1, endIndex, TypeSort); // сортировка правой подпоследовательноси
+        merge(array, support, startIndex, h, h + 1, endIndex, TypeSort); // слияние подпоследовательностей
+    }
+    public static void merge(int[] array, int[] supportArray, int ls, int le, int rs, int re, String TypeSort) {
+        for (int i = ls; i <= re; i++) {
+            supportArray[i] = array[i];
+        }
+        int l = ls;
+        int r = rs;
+        for (int i = ls; i <= re; i++) {
+            if (l > le) {
+                array[i] = supportArray[r];
+                r += 1;
+            } else if (r > re) {
+                array[i] = supportArray[l];
+                l += 1;
+            } else if (TypeSort.equals("-a") && supportArray[l] < supportArray[r]) {//сортируем по возрастанию
+                array[i] = supportArray[l];
+                l += 1;
+            } else if (TypeSort.equals("-d") && supportArray[l] > supportArray[r]) { // сортировка по убыванию
+                array[i] = supportArray[l];
+                l += 1;
+            } else {
+                array[i] = supportArray[r];
+                r += 1;
+            }
+        }
+    }
+    //Сортировка строк
+    public static <T> void mergeStart(T[] array, Comparator<T> comp, String TypeSort) {
+        T[] support = Arrays.copyOf(array, array.length);
+        int startIndex = 0;
+        int endIndex = support.length - 1;
+        mergeSort(array, support, comp, startIndex, endIndex, TypeSort);
+    }
+    public static <T> void mergeSort(T[] array, T[] support, Comparator<T> comp, int startIndex, int endIndex, String TypeSort) {
+        if (startIndex >= endIndex) {
+            return;
+        }
+        int h = startIndex + (endIndex - startIndex) / 2;
+        mergeSort(array, support, comp, startIndex, h, TypeSort);//сортировка левой подпоследовательность
+        mergeSort(array, support, comp, h + 1, endIndex, TypeSort);// сортировка правой подпоследовательноси
+        merge(array, support, comp, startIndex, h, h + 1, endIndex, TypeSort);// слияние подпоследовательностей
+    }
+    public static <T> void merge(T[] array, T[] support, Comparator<T> comp, int ls, int le, int rs, int re, String TypeSort) {
+        for (int i = ls; i <= re; i++) {
+            support[i] = array[i];
+        }
+        int l = ls;
+        int r = rs;
+        for (int i = ls; i <= re; i++) {
+            if (l > le) {
+                array[i] = support[r];
+                r += 1;
+            } else if (r > re) {
+                array[i] = support[l];
+                l += 1;
+            } else if (TypeSort.equals("-a") && comp.compare(support[l], support[r]) < 0) {
+                array[i] = support[l];
+                l += 1;
+            } else if (TypeSort.equals("-d") && comp.compare(support[l], support[r]) > 0) {
+                array[i] = support[l];
+                l += 1;
+            } else {
+                array[i] = support[r];
+                r += 1;
+            }
+        }
+    }
+}
