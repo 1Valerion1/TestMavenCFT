@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Main {
-    private static final String exitMessage = " Нажмите Enter для прекращения программы.";
+    private static final String exitMessage = " Press Enter to terminate the program.\n";
 
     public static void main(String[] args) throws Exception {
         String TypeSort = "-a";
@@ -15,14 +15,14 @@ public class Main {
         String outputFileName;
         String text;
         String[] temp = null;
-        System.out.println("Введите параметры сортировки: -тип сортировки(-a/-d) -тип данных(-i/-s)"
-                + " имя выходного файла(out.txt)  имена входных файлов(in1.txt)");
+        System.out.println("Enter sort options:" +
+                              " -sort type(-a/-d) -data type(-i/-s) output filename(out.txt) input filename(in1.txt)\n");
 
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         text = read.readLine();
         temp = text.split(" ");
         if (temp.length < 3) {
-            throw new Exception("Отсутствуют обязательные параметры:" + " тип данных, имя выходного файла или имя входного файла.\n");
+            throw new Exception("Required parameters are missing: data type, output file name, or input file name.\n\n");
         }
         read.close();
 
@@ -35,13 +35,13 @@ public class Main {
             TypeSort = "-a";
             i++;
         } else if (!temp[i].equals("-i") || !temp[i].equals("-s")) {
-            System.out.println("Вы неверно указали тип сортировки."
-                    + " Элементы будут отсортированы по возрастанию по умолчанию.");
+            System.out.println("You are using sort type incorrectly.\n"
+                    + " Items will be sorted by age by default.\n");
             TypeSort = "-a";
             i++;
         } else {
-            System.out.println("Вы неверно указали тип сортировки."
-                    + " Элементы будут отсортированы по возрастанию по умолчанию.");
+            System.out.println("You specified the sort type incorrectly. " +
+                     "Items will be sorted in ascending order by default.\n");
             TypeSort = "-a";
         }
         //Проверяем введеный тип данных
@@ -49,7 +49,7 @@ public class Main {
             if (temp[i].equals("-i")) Type = "-i";
             else Type = "-s";
             i++;
-        } else throw new Exception("Вы ввели неверный тип данных, попробуйте снова.");
+        } else throw new Exception("You entered the wrong data type, please try again.\n");
         //Выводимый файл
         outputFileName = temp[i];
         i++;
@@ -64,15 +64,15 @@ public class Main {
 
                 while ((line = reader.readLine()) != null) {
                     if (line.indexOf(' ') != -1)
-                        throw new Exception("У вас присутствует пробел в строке, уберите и попробуйте снова");
+                        throw new Exception("You have a space in the line, remove it and try again\n");
                     rawData.add(line);
                 }
 
             } catch (FileNotFoundException e) {
-                System.out.println("Входной файл с заданым именем не найден." + exitMessage);
+                System.out.println("The input file with the given name was not found.\n" + exitMessage);
                 exitByEnterPressed();
             } catch (IOException e) {
-                System.out.println("Ошибка чтения входных данных." + exitMessage);
+                System.out.println("Error reading input data.\n" + exitMessage);
                 exitByEnterPressed();
             }
         }
@@ -101,7 +101,7 @@ public class Main {
                     writer.write(data[k] + "\n");
             }
         } catch (IOException e) {
-            System.out.println("Ошибка записи выходных данных." + exitMessage);
+            System.out.println("Error writing output.\n" + exitMessage);
         }
 
     }
@@ -121,19 +121,20 @@ public class Main {
             try {
                 int intArr[] = Arrays.stream(arr).mapToInt(value -> Integer.parseInt(value)).toArray();
             } catch (NumberFormatException e) {
-                System.out.println("Вы пытаетесь отсортировать массив, содержащий строки, как массив целых чисел." + " Тип сортируемых данных будет изменен.");
+                System.out.println("You are trying to sort an array containing strings like an array of integers." +
+                                       " The sorted data type will be changed.\n");
                 return "-s";
             }
         } else if (expectedType.equals("-s")) {
             try {
                 int intArr[] = Arrays.stream(arr).mapToInt(value -> Integer.parseInt(value)).toArray();
-                System.out.println("Вы пытаетесь отсортировать массив целых чисел как массив строк." + " Тип сортируемых данных будет изменен.");
+                System.out.println("You are trying to sort an array of integers as an array of strings.\n" + " The sorted data type will be changed.\n");
                 return "-i";
             } catch (NumberFormatException e) {
                 return expectedType;
             }
         } else {
-            System.out.println("Вы указали неверный тип входных данных." + " Данные будут отсортированы по умолчанию как массив строк.");
+            System.out.println("You specified the wrong input data type.\n" + " The data will be sorted by default as an array of strings.\n");
             return "-s";
         }
         return expectedType;
